@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, TextInput } from "react-native";
 import React from "react";
 import Search from "../../../assets/svgs/search.svg";
 import Filter from "../../../assets/svgs/filter.svg";
+import FilterModal from "../modals/filterModal";
 
 const HomeHeader = ({ onSearchTextChanged }) => {
   return (
@@ -27,6 +28,7 @@ const HomeHeader = ({ onSearchTextChanged }) => {
         />
         <Filter height={40} width={40} fill={"#DACC3E"} />
       </View>
+      <FilterModal />
     </View>
   );
 };
