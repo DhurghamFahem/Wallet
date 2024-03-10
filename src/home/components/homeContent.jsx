@@ -1,12 +1,27 @@
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, FlatList } from "react-native";
 import React from "react";
 import HomeCard from "./homeCard";
+import transactions from "../../../data/transactions";
 
-const HomeContent = () => {
+const HomeContent = ({ searchText }) => {
+  const getFilteredTransactions = () => {
+    if (typeof searchText === "string" && searchText.length === 0)
+      return transactions;
+    return transactions.filter(
+      (transaction) =>
+        transaction.name.includes(searchText) ||
+        transaction.note.includes(searchText)
+    );
+  };
+
   return (
     <View style={styles.container}>
-      <HomeCard type={"income"} />
-      <HomeCard type={"outcome"} />
+      <FlatList
+        data={getFilteredTransactions()}
+        keyExtractor={(item) => item.id.toString()}
+        contentContainerStyle={{ flexGrow: 1 }}
+        renderItem={({ item }) => <HomeCard transaction={item} />}
+      />
     </View>
   );
 };

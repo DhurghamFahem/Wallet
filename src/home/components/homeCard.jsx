@@ -3,12 +3,14 @@ import React from "react";
 import Delete from "../../../assets/svgs/delete.svg";
 import Edit from "../../../assets/svgs/edit.svg";
 
-const HomeCard = ({ type, onPress }) => {
-  const bgColor = type === "income" ? "#7FB7BE" : "#7D1538";
+const HomeCard = ({ transaction }) => {
+  const bgColor = transaction.type === "income" ? "#7FB7BE" : "#7D1538";
   const currentStyles = styles(bgColor);
 
   const getAmount = () => {
-    return type === "income" ? "+" + "5,000" : "-" + "5,000";
+    return transaction.type === "income"
+      ? "+" + transaction.amount.toLocaleString()
+      : "-" + transaction.amount.toLocaleString();
   };
 
   return (
@@ -17,25 +19,22 @@ const HomeCard = ({ type, onPress }) => {
       <View style={currentStyles.content}>
         <View style={currentStyles.infoContainer}>
           <View style={currentStyles.leftContainer}>
-            <Text style={currentStyles.nameText}>Ali</Text>
-            <Text style={currentStyles.noteText}>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum
-              iusto
-            </Text>
+            <Text style={currentStyles.nameText}>{transaction.name}</Text>
+            <Text style={currentStyles.noteText}>{transaction.note}</Text>
           </View>
           <View style={currentStyles.rightContainer}>
             <Text style={currentStyles.amountText}>{getAmount()}</Text>
-            <Text style={currentStyles.dateText}>01/02/2023</Text>
-            <Text style={currentStyles.dateText}>06:30 AM</Text>
+            <Text style={currentStyles.dateText}>{transaction.date}</Text>
+            <Text style={currentStyles.dateText}>{transaction.time}</Text>
           </View>
         </View>
 
         <View style={currentStyles.actionBar}>
           <TouchableOpacity style={currentStyles.deleteButton}>
-            <Delete height={30} width={30} fill={"#DACC3E"} />
+            <Delete height={20} width={20} fill={"#DACC3E"} />
           </TouchableOpacity>
           <TouchableOpacity style={currentStyles.editButton}>
-            <Edit height={30} width={30} fill={"#DACC3E"} />
+            <Edit height={20} width={20} fill={"#DACC3E"} />
           </TouchableOpacity>
         </View>
       </View>
@@ -94,7 +93,7 @@ const styles = (bgColor) =>
     deleteButton: {
       backgroundColor: "#7D1538",
       width: "50%",
-      height: 50,
+      height: 30,
       borderTopLeftRadius: 20,
       borderBottomLeftRadius: 20,
       alignItems: "center",
@@ -103,14 +102,14 @@ const styles = (bgColor) =>
     editButton: {
       backgroundColor: "#7FB7BE",
       width: "50%",
-      height: 50,
+      height: 30,
       borderTopRightRadius: 20,
       borderBottomRightRadius: 20,
       alignItems: "center",
       justifyContent: "center",
     },
     actionBar: {
-      height: 50,
+      height: 30,
       backgroundColor: "red",
       width: "96%",
       flexDirection: "row",
@@ -124,12 +123,12 @@ const styles = (bgColor) =>
       flex: 1,
     },
     leftContainer: {
-      width: "70%",
+      width: "60%",
       alignItems: "start",
-      justifyContent: "start",
+      justifyContent: "center",
     },
     rightContainer: {
-      width: "30%",
+      width: "40%",
       alignItems: "center",
       justifyContent: "center",
     },
