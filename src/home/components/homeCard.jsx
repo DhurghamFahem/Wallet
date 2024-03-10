@@ -15,69 +15,26 @@ const HomeCard = ({ type, onPress }) => {
     <View style={currentStyles.container}>
       <View style={currentStyles.bar}></View>
       <View style={currentStyles.content}>
-        <View style={{ flexDirection: "row", flex: 1 }}>
-          <View
-            style={{
-              width: "70%",
-              alignItems: "start",
-              justifyContent: "start",
-            }}
-          >
+        <View style={currentStyles.infoContainer}>
+          <View style={currentStyles.leftContainer}>
             <Text style={currentStyles.nameText}>Ali</Text>
             <Text style={currentStyles.noteText}>
               Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum
               iusto
             </Text>
           </View>
-          <View
-            style={{
-              width: "30%",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
+          <View style={currentStyles.rightContainer}>
             <Text style={currentStyles.amountText}>{getAmount()}</Text>
             <Text style={currentStyles.dateText}>01/02/2023</Text>
             <Text style={currentStyles.dateText}>06:30 AM</Text>
           </View>
         </View>
 
-        <View
-          style={{
-            height: 50,
-            backgroundColor: "red",
-            width: "96%",
-            flexDirection: "row",
-            borderRadius: 20,
-            backgroundColor: "rgba(255, 255, 255, 0.2)",
-            justifyContent: "space-around",
-            alignItems: "center",
-          }}
-        >
-          <TouchableOpacity
-            style={{
-              backgroundColor: "#7D1538",
-              width: "50%",
-              height: 50,
-              borderTopLeftRadius: 20,
-              borderBottomLeftRadius: 20,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
+        <View style={currentStyles.actionBar}>
+          <TouchableOpacity style={currentStyles.deleteButton}>
             <Delete height={30} width={30} fill={"#DACC3E"} />
           </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              backgroundColor: "#7FB7BE",
-              width: "50%",
-              height: 50,
-              borderTopRightRadius: 20,
-              borderBottomRightRadius: 20,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
+          <TouchableOpacity style={currentStyles.editButton}>
             <Edit height={30} width={30} fill={"#DACC3E"} />
           </TouchableOpacity>
         </View>
@@ -133,6 +90,48 @@ const styles = (bgColor) =>
       color: "gray",
       fontWeight: "500",
       marginLeft: 15,
+    },
+    deleteButton: {
+      backgroundColor: "#7D1538",
+      width: "50%",
+      height: 50,
+      borderTopLeftRadius: 20,
+      borderBottomLeftRadius: 20,
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    editButton: {
+      backgroundColor: "#7FB7BE",
+      width: "50%",
+      height: 50,
+      borderTopRightRadius: 20,
+      borderBottomRightRadius: 20,
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    actionBar: {
+      height: 50,
+      backgroundColor: "red",
+      width: "96%",
+      flexDirection: "row",
+      borderRadius: 20,
+      backgroundColor: "rgba(255, 255, 255, 0.2)",
+      justifyContent: "space-around",
+      alignItems: "center",
+    },
+    infoContainer: {
+      flexDirection: "row",
+      flex: 1,
+    },
+    leftContainer: {
+      width: "70%",
+      alignItems: "start",
+      justifyContent: "start",
+    },
+    rightContainer: {
+      width: "30%",
+      alignItems: "center",
+      justifyContent: "center",
     },
   });
 
