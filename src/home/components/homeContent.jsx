@@ -1,29 +1,56 @@
 import { View, StyleSheet, FlatList } from "react-native";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import HomeCard from "./homeCard";
-import transactions from "../../../data/transactions";
-import FilterModal from "../modals/filterModal";
 
-const HomeContent = ({ searchText }) => {
-  const getFilteredTransactions = () => {
-    if (typeof searchText === "string" && searchText.length === 0)
-      return transactions;
-    return transactions.filter(
-      (transaction) =>
-        transaction.name.includes(searchText) ||
-        transaction.note.includes(searchText)
-    );
-  };
+const HomeContent = ({ transactions, searchText, filter }) => {
+  const [filteredTransactions, setFilteredTransactions] =
+    useState(transactions);
+
+  useEffect(() => {
+    let filtered = [];
+    for (let i = 0; i < transactions.length; i++) {
+      let transaction = transactions[i];
+      let addToList = true;
+      if (
+        typeof searchText === "string" &&
+        searchText.length > 0 &&
+        transaction.account.includes(searchText) == false &&
+        transaction.note.includes(searchText) == false
+      )
+        addToList = false;
+
+      if (
+        typeof filter.selectedWallet === "string" &&
+        filter.selectedWallet.length > 0 &&
+        transaction.wallet.includes(filter.selectedWallet) == false
+      )
+        addToList = false;
+
+      if (
+        typeof filter.selectedAccount === "string" &&
+        filter.selectedAccount.length > 0 &&
+        transaction.account.includes(filter.selectedAccount) == false
+      )
+        addToList = false;
+
+      if (transaction.date.isBefore(filter.fromDate) === true)
+        addToList = false;
+
+      if (transaction.date.isAfter(filter.toDate) === true) addToList = false;
+
+      if (addToList === true) filtered.push(transaction);
+    }
+    setFilteredTransactions(filtered);
+  }, [filter, searchText]);
 
   return (
     <View style={styles.container}>
       <FlatList
-        data={getFilteredTransactions()}
+        data={filteredTransactions}
         keyExtractor={(item) => item.id.toString()}
         contentContainerStyle={{ flexGrow: 1 }}
         renderItem={({ item }) => <HomeCard transaction={item} />}
       />
-      <FilterModal transactions={getFilteredTransactions()} />
     </View>
   );
 };

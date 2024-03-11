@@ -1,10 +1,35 @@
-import { View, Text, StyleSheet, TextInput } from "react-native";
-import React from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
+import React, { useState } from "react";
 import Search from "../../../assets/svgs/search.svg";
 import Filter from "../../../assets/svgs/filter.svg";
 import FilterModal from "../modals/filterModal";
+import moment from "moment";
 
-const HomeHeader = ({ onSearchTextChanged }) => {
+const HomeHeader = ({ transactions, onSearchTextChanged, onFilterApplied }) => {
+  const [filterVisible, setFilterVisible] = useState(false);
+  const [filter, setFilter] = useState({
+    selectedWallet: "",
+    selectedAccount: "",
+    fromDate: moment("2024-01-01"),
+    toDate: moment("2030-01-01"),
+  });
+
+  const filterList = (filter) => {
+    onFilterApplied(filter);
+    setFilter(filter);
+  };
+
+  const clearFilter = (filter) => {
+    onFilterApplied(filter);
+    setFilter(filter);
+  };
+
   return (
     <View style={styles.container}>
       <View
@@ -26,8 +51,36 @@ const HomeHeader = ({ onSearchTextChanged }) => {
             paddingRight: 10,
           }}
         />
-        <Filter height={40} width={40} fill={"#DACC3E"} />
+        <TouchableOpacity
+          onPress={() => {
+            setFilterVisible(!filterVisible);
+          }}
+        >
+          <Filter height={40} width={40} fill={"#DACC3E"} />
+        </TouchableOpacity>
       </View>
+
+      <FilterModal
+        filter={filter}
+        transactions={transactions}
+        visible={filterVisible}
+        onClosePressed={() => {
+          setFilterVisible(false);
+        }}
+        onClearPressed={() => {
+          setFilterVisible(false);
+          clearFilter({
+            selectedWallet: "",
+            selectedAccount: "",
+            fromDate: moment("2024-01-01"),
+            toDate: moment("2030-01-01"),
+          });
+        }}
+        onSavePressed={(filter) => {
+          setFilterVisible(false);
+          filterList(filter);
+        }}
+      />
     </View>
   );
 };

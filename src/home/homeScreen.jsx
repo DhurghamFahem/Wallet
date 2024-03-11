@@ -3,16 +3,30 @@ import React, { useState } from "react";
 import HomeFooter from "./components/homeFooter";
 import HomeHeader from "./components/homeHeader";
 import HomeContent from "./components/homeContent";
+import transactions from "../../data/transactions";
+import moment from "moment";
 
 const HomeScreen = () => {
   const [searchText, setSearchText] = useState("");
-  const searchTextChanged = (searchText) => {
-    setSearchText(searchText);
-  };
+  const [filter, setFilter] = useState({
+    selectedWallet: "",
+    selectedAccount: "",
+    fromDate: moment("2024-01-01"),
+    toDate: moment("2030-01-01"),
+  });
+
   return (
     <SafeAreaView direction="rtl" style={styles.container}>
-      <HomeHeader onSearchTextChanged={searchTextChanged} />
-      <HomeContent searchText={searchText} />
+      <HomeHeader
+        transactions={transactions}
+        onSearchTextChanged={(text) => setSearchText(text)}
+        onFilterApplied={(f) => setFilter(f)}
+      />
+      <HomeContent
+        transactions={transactions}
+        searchText={searchText}
+        filter={filter}
+      />
       <HomeFooter />
     </SafeAreaView>
   );

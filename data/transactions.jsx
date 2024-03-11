@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export default transactions = [
   {
     id: "1",
@@ -6,8 +8,7 @@ export default transactions = [
     note: "Lorem ipsum is placeholder text",
     type: "income",
     amount: 1000000,
-    date: "01/02/2023",
-    time: "06:30 AM",
+    date: moment(),
   },
   {
     id: "2",
@@ -16,8 +17,7 @@ export default transactions = [
     note: "",
     type: "outcome",
     amount: 3000,
-    date: "06/04/2024",
-    time: "07:30 AM",
+    date: moment(),
   },
   {
     id: "3",
@@ -26,8 +26,7 @@ export default transactions = [
     note: "Lorem ipsum is placeholder text",
     type: "income",
     amount: 5000,
-    date: "01/02/2023",
-    time: "06:30 AM",
+    date: moment(),
   },
   {
     id: "4",
@@ -36,8 +35,7 @@ export default transactions = [
     note: "",
     type: "outcome",
     amount: 3000,
-    date: "06/04/2024",
-    time: "07:30 AM",
+    date: moment(),
   },
   {
     id: "5",
@@ -46,8 +44,7 @@ export default transactions = [
     note: "Lorem ipsum is placeholder text",
     type: "income",
     amount: 5000,
-    date: "01/02/2023",
-    time: "06:30 AM",
+    date: moment(),
   },
   {
     id: "6",
@@ -56,8 +53,7 @@ export default transactions = [
     note: "",
     type: "outcome",
     amount: 3000,
-    date: "06/04/2024",
-    time: "07:30 AM",
+    date: moment(),
   },
   {
     id: "7",
@@ -66,8 +62,7 @@ export default transactions = [
     note: "Lorem ipsum is placeholder text",
     type: "income",
     amount: 5000,
-    date: "01/02/2023",
-    time: "06:30 AM",
+    date: moment(),
   },
   {
     id: "8",
@@ -76,8 +71,7 @@ export default transactions = [
     note: "",
     type: "outcome",
     amount: 3000,
-    date: "06/04/2024",
-    time: "07:30 AM",
+    date: moment(),
   },
   {
     id: "9",
@@ -86,8 +80,7 @@ export default transactions = [
     note: "Lorem ipsum is placeholder text",
     type: "income",
     amount: 5000,
-    date: "01/02/2023",
-    time: "06:30 AM",
+    date: moment(),
   },
   {
     id: "10",
@@ -96,8 +89,7 @@ export default transactions = [
     note: "",
     type: "outcome",
     amount: 3000,
-    date: "06/04/2024",
-    time: "07:30 AM",
+    date: moment(),
   },
   {
     id: "11",
@@ -106,8 +98,7 @@ export default transactions = [
     note: "Lorem ipsum is placeholder text",
     type: "income",
     amount: 5000,
-    date: "01/02/2023",
-    time: "06:30 AM",
+    date: moment(),
   },
   {
     id: "12",
@@ -116,8 +107,7 @@ export default transactions = [
     note: "",
     type: "outcome",
     amount: 3000,
-    date: "06/04/2024",
-    time: "07:30 AM",
+    date: moment(),
   },
   {
     id: "13",
@@ -126,8 +116,7 @@ export default transactions = [
     note: "Lorem ipsum is placeholder text",
     type: "income",
     amount: 5000,
-    date: "01/02/2023",
-    time: "06:30 AM",
+    date: moment(),
   },
   {
     id: "14",
@@ -136,8 +125,7 @@ export default transactions = [
     note: "",
     type: "outcome",
     amount: 3000,
-    date: "06/04/2024",
-    time: "07:30 AM",
+    date: moment(),
   },
   {
     id: "15",
@@ -146,8 +134,7 @@ export default transactions = [
     note: "Lorem ipsum is placeholder text",
     type: "income",
     amount: 5000,
-    date: "01/02/2023",
-    time: "06:30 AM",
+    date: moment(),
   },
   {
     id: "16",
@@ -156,8 +143,7 @@ export default transactions = [
     note: "",
     type: "outcome",
     amount: 3000,
-    date: "06/04/2024",
-    time: "07:30 AM",
+    date: moment(),
   },
   {
     id: "17",
@@ -166,8 +152,7 @@ export default transactions = [
     note: "Lorem ipsum is placeholder text",
     type: "income",
     amount: 5000,
-    date: "01/02/2023",
-    time: "06:30 AM",
+    date: moment(),
   },
   {
     id: "18",
@@ -176,8 +161,7 @@ export default transactions = [
     note: "",
     type: "outcome",
     amount: 3000,
-    date: "06/04/2024",
-    time: "07:30 AM",
+    date: moment(),
   },
   {
     id: "19",
@@ -186,8 +170,7 @@ export default transactions = [
     note: "Lorem ipsum is placeholder text",
     type: "income",
     amount: 5000,
-    date: "01/02/2023",
-    time: "06:30 AM",
+    date: moment(),
   },
   {
     id: "20",
@@ -196,7 +179,6 @@ export default transactions = [
     note: "",
     type: "outcome",
     amount: 3000,
-    date: "06/04/2024",
-    time: "07:30 AM",
+    date: moment(),
   },
 ];

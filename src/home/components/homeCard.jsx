@@ -19,13 +19,18 @@ const HomeCard = ({ transaction }) => {
       <View style={currentStyles.content}>
         <View style={currentStyles.infoContainer}>
           <View style={currentStyles.leftContainer}>
-            <Text style={currentStyles.nameText}>{transaction.name}</Text>
+            <Text style={currentStyles.walletText}>{transaction.wallet}</Text>
+            <Text style={currentStyles.nameText}>{transaction.account}</Text>
             <Text style={currentStyles.noteText}>{transaction.note}</Text>
           </View>
           <View style={currentStyles.rightContainer}>
             <Text style={currentStyles.amountText}>{getAmount()}</Text>
-            <Text style={currentStyles.dateText}>{transaction.date}</Text>
-            <Text style={currentStyles.dateText}>{transaction.time}</Text>
+            <Text style={currentStyles.dateText}>
+              {transaction.date.format("YYY-MM-DD")}
+            </Text>
+            <Text style={currentStyles.dateText}>
+              {transaction.date.format("h:mm:ss a")}
+            </Text>
           </View>
         </View>
 
@@ -80,10 +85,16 @@ const styles = (bgColor) =>
     dateText: {
       color: "gray",
     },
+    walletText: {
+      fontSize: 22,
+      fontWeight: "900",
+      marginLeft: 10,
+    },
     nameText: {
       fontSize: 18,
-      fontWeight: "600",
+      fontWeight: "900",
       marginLeft: 10,
+      color: "gray",
     },
     noteText: {
       color: "gray",

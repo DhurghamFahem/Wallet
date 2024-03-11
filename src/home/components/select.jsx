@@ -6,6 +6,7 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 const Select = ({
   defaultButtonText,
   searchPlaceHolder,
+  defaultValue,
   data,
   onSelectChanged,
 }) => {
@@ -16,6 +17,7 @@ const Select = ({
         onSelect={(selectedItem, index) => {
           onSelectChanged(selectedItem, index);
         }}
+        defaultValue={defaultValue}
         defaultButtonText={defaultButtonText}
         buttonTextAfterSelection={(selectedItem, index) => {
           return selectedItem;
