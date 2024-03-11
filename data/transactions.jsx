@@ -1,6 +1,7 @@
 export default transactions = [
   {
     id: "1",
+    wallet: "Salary",
     name: "Dhurgham",
     note: "Lorem ipsum is placeholder text",
     type: "income",
@@ -10,6 +11,7 @@ export default transactions = [
   },
   {
     id: "2",
+    wallet: "Box",
     name: "Moaml",
     note: "",
     type: "outcome",
@@ -19,6 +21,7 @@ export default transactions = [
   },
   {
     id: "3",
+    wallet: "Salary",
     name: "Dhurgham",
     note: "Lorem ipsum is placeholder text",
     type: "income",
@@ -28,6 +31,7 @@ export default transactions = [
   },
   {
     id: "4",
+    wallet: "Store",
     name: "Moaml",
     note: "",
     type: "outcome",
@@ -37,6 +41,7 @@ export default transactions = [
   },
   {
     id: "5",
+    wallet: "Store",
     name: "Dhurgham",
     note: "Lorem ipsum is placeholder text",
     type: "income",
@@ -46,6 +51,7 @@ export default transactions = [
   },
   {
     id: "6",
+    wallet: "Salary",
     name: "Moaml",
     note: "",
     type: "outcome",
@@ -55,6 +61,7 @@ export default transactions = [
   },
   {
     id: "7",
+    wallet: "Box",
     name: "Dhurgham",
     note: "Lorem ipsum is placeholder text",
     type: "income",
@@ -64,6 +71,7 @@ export default transactions = [
   },
   {
     id: "8",
+    wallet: "Salary",
     name: "Moaml",
     note: "",
     type: "outcome",
@@ -73,6 +81,7 @@ export default transactions = [
   },
   {
     id: "9",
+    wallet: "Salary",
     name: "Dhurgham",
     note: "Lorem ipsum is placeholder text",
     type: "income",
@@ -82,6 +91,7 @@ export default transactions = [
   },
   {
     id: "10",
+    wallet: "Salary",
     name: "Moaml",
     note: "",
     type: "outcome",
@@ -91,6 +101,7 @@ export default transactions = [
   },
   {
     id: "11",
+    wallet: "Salary",
     name: "Dhurgham",
     note: "Lorem ipsum is placeholder text",
     type: "income",
@@ -100,6 +111,7 @@ export default transactions = [
   },
   {
     id: "12",
+    wallet: "Salary",
     name: "Moaml",
     note: "",
     type: "outcome",
@@ -109,6 +121,7 @@ export default transactions = [
   },
   {
     id: "13",
+    wallet: "Salary",
     name: "Dhurgham",
     note: "Lorem ipsum is placeholder text",
     type: "income",
@@ -118,6 +131,7 @@ export default transactions = [
   },
   {
     id: "14",
+    wallet: "Salary",
     name: "Moaml",
     note: "",
     type: "outcome",
@@ -127,6 +141,7 @@ export default transactions = [
   },
   {
     id: "15",
+    wallet: "Salary",
     name: "Dhurgham",
     note: "Lorem ipsum is placeholder text",
     type: "income",
@@ -136,6 +151,7 @@ export default transactions = [
   },
   {
     id: "16",
+    wallet: "Salary",
     name: "Moaml",
     note: "",
     type: "outcome",
@@ -145,6 +161,7 @@ export default transactions = [
   },
   {
     id: "17",
+    wallet: "Salary",
     name: "Dhurgham",
     note: "Lorem ipsum is placeholder text",
     type: "income",
@@ -154,6 +171,7 @@ export default transactions = [
   },
   {
     id: "18",
+    wallet: "Salary",
     name: "Moaml",
     note: "",
     type: "outcome",
@@ -163,6 +181,7 @@ export default transactions = [
   },
   {
     id: "19",
+    wallet: "Salary",
     name: "Dhurgham",
     note: "Lorem ipsum is placeholder text",
     type: "income",
@@ -172,6 +191,7 @@ export default transactions = [
   },
   {
     id: "20",
+    wallet: "Salary",
     name: "Moaml",
     note: "",
     type: "outcome",

@@ -1,4 +1,4 @@
-import { StyleSheet, SafeAreaView } from "react-native";
+import { StyleSheet, SafeAreaView, View } from "react-native";
 import React, { useState } from "react";
 import HomeFooter from "./components/homeFooter";
 import HomeHeader from "./components/homeHeader";
@@ -10,7 +10,7 @@ const HomeScreen = () => {
     setSearchText(searchText);
   };
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView direction="rtl" style={styles.container}>
       <HomeHeader onSearchTextChanged={searchTextChanged} />
       <HomeContent searchText={searchText} />
       <HomeFooter />
