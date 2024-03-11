@@ -2,12 +2,13 @@ import { View, StyleSheet, FlatList } from "react-native";
 import React, { useState, useEffect } from "react";
 import HomeCard from "./homeCard";
 
-const HomeContent = ({ transactions, searchText, filter }) => {
+const HomeContent = ({ transactions, searchText, filter, getSummation }) => {
   const [filteredTransactions, setFilteredTransactions] =
     useState(transactions);
 
   useEffect(() => {
     let filtered = [];
+    let summation = 0;
     for (let i = 0; i < transactions.length; i++) {
       let transaction = transactions[i];
       let addToList = true;
@@ -38,9 +39,16 @@ const HomeContent = ({ transactions, searchText, filter }) => {
 
       if (transaction.date.isAfter(filter.toDate) === true) addToList = false;
 
-      if (addToList === true) filtered.push(transaction);
+      if (addToList === true) {
+        filtered.push(transaction);
+        summation +=
+          transaction.type === "income"
+            ? transaction.amount
+            : -transaction.amount;
+      }
     }
     setFilteredTransactions(filtered);
+    getSummation(summation);
   }, [filter, searchText]);
 
   return (

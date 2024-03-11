@@ -25,7 +25,7 @@ const styles = (bgColor) =>
   StyleSheet.create({
     container: {
       height: 50,
-      width: "50%",
+      width: "30%",
       alignItems: "center",
       justifyContent: "center",
       backgroundColor: bgColor,

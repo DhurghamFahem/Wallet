@@ -8,12 +8,17 @@ import moment from "moment";
 
 const HomeScreen = () => {
   const [searchText, setSearchText] = useState("");
+  const [summation, setSummation] = useState(0);
   const [filter, setFilter] = useState({
     selectedWallet: "",
     selectedAccount: "",
     fromDate: moment("2024-01-01"),
     toDate: moment("2030-01-01"),
   });
+
+  const getSummation = (sum) => {
+    setSummation(sum);
+  };
 
   return (
     <SafeAreaView direction="rtl" style={styles.container}>
@@ -26,8 +31,9 @@ const HomeScreen = () => {
         transactions={transactions}
         searchText={searchText}
         filter={filter}
+        getSummation={(sum) => getSummation(sum)}
       />
-      <HomeFooter />
+      <HomeFooter summation={summation} />
     </SafeAreaView>
   );
 };
