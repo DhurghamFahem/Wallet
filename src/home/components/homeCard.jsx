@@ -26,7 +26,7 @@ const HomeCard = ({ transaction }) => {
           <View style={currentStyles.rightContainer}>
             <Text style={currentStyles.amountText}>{getAmount()}</Text>
             <Text style={currentStyles.dateText}>
-              {transaction.date.format("YYY-MM-DD")}
+              {transaction.date.format("YYYY-MM-DD")}
             </Text>
             <Text style={currentStyles.dateText}>
               {transaction.date.format("h:mm:ss a")}
