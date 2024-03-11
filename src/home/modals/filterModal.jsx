@@ -5,15 +5,42 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Done from "../../../assets/svgs/done.svg";
 import Cancel from "../../../assets/svgs/cancel.svg";
 import Select from "../components/select";
 import localization from "../../../localization/localization.jsx";
 
-const FilterModal = () => {
+const FilterModal = ({ transactions }) => {
+  const [wallets, setWallets] = useState([]);
+  const [accounts, setAccounts] = useState([]);
+  const [selectedWallet, setSelectedWallet] = useState("");
+  const [selectedAccount, setSelectedAccount] = useState("");
+
+  useEffect(() => {
+    var walletSet = new Set();
+    var accountSet = new Set();
+    for (let i = 0; i < transactions.length; i++) {
+      let wallet = transactions[i].wallet;
+      let account = transactions[i].account;
+      if (walletSet.has(wallet) === false) walletSet.add(wallet);
+      if (accountSet.has(account) === false) accountSet.add(account);
+    }
+
+    setWallets(Array.from(walletSet));
+    setAccounts(Array.from(accountSet));
+  }, []);
+
+  const selectedWalletChanged = (wallet, index) => {
+    console.log(wallet);
+  };
+
+  const selectedAccountChanged = (account, index) => {
+    console.log(account);
+  };
+
   return (
-    <Modal transparent={true} visible={false}>
+    <Modal transparent={true} visible={true}>
       <View
         style={{
           flex: 1,
@@ -30,12 +57,20 @@ const FilterModal = () => {
                   "defaultSelectWalletButtonText"
                 )}
                 searchPlaceHolder={localization.t("searchWallets")}
+                data={wallets}
+                onSelectChanged={(wallet, index) =>
+                  selectedWalletChanged(wallet, index)
+                }
               />
               <Select
                 defaultButtonText={localization.t(
                   "defaultSelectAccountButtonText"
                 )}
                 searchPlaceHolder={localization.t("searchAccounts")}
+                data={accounts}
+                onSelectChanged={(account, index) =>
+                  selectedAccountChanged(account, index)
+                }
               />
             </View>
             <View

@@ -2,6 +2,7 @@ import { View, StyleSheet, FlatList } from "react-native";
 import React from "react";
 import HomeCard from "./homeCard";
 import transactions from "../../../data/transactions";
+import FilterModal from "../modals/filterModal";
 
 const HomeContent = ({ searchText }) => {
   const getFilteredTransactions = () => {
@@ -22,6 +23,7 @@ const HomeContent = ({ searchText }) => {
         contentContainerStyle={{ flexGrow: 1 }}
         renderItem={({ item }) => <HomeCard transaction={item} />}
       />
+      <FilterModal transactions={getFilteredTransactions()} />
     </View>
   );
 };

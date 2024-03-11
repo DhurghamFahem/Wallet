@@ -3,8 +3,6 @@ import React from "react";
 import SelectDropdown from "react-native-select-dropdown";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 
-const countries = ["Egypt", "Canada", "Australia", "Ireland"];
-
 const Select = ({
   defaultButtonText,
   searchPlaceHolder,
@@ -14,7 +12,7 @@ const Select = ({
   return (
     <View>
       <SelectDropdown
-        data={countries}
+        data={data}
         onSelect={(selectedItem, index) => {
           onSelectChanged(selectedItem, index);
         }}

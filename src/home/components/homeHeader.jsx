@@ -28,7 +28,6 @@ const HomeHeader = ({ onSearchTextChanged }) => {
         />
         <Filter height={40} width={40} fill={"#DACC3E"} />
       </View>
-      <FilterModal />
     </View>
   );
 };

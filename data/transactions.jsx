@@ -2,7 +2,7 @@ export default transactions = [
   {
     id: "1",
     wallet: "Salary",
-    name: "Dhurgham",
+    account: "Dhurgham",
     note: "Lorem ipsum is placeholder text",
     type: "income",
     amount: 1000000,
@@ -12,7 +12,7 @@ export default transactions = [
   {
     id: "2",
     wallet: "Box",
-    name: "Moaml",
+    account: "Moaml",
     note: "",
     type: "outcome",
     amount: 3000,
@@ -22,7 +22,7 @@ export default transactions = [
   {
     id: "3",
     wallet: "Salary",
-    name: "Dhurgham",
+    account: "Dhurgham",
     note: "Lorem ipsum is placeholder text",
     type: "income",
     amount: 5000,
@@ -32,7 +32,7 @@ export default transactions = [
   {
     id: "4",
     wallet: "Store",
-    name: "Moaml",
+    account: "Moaml",
     note: "",
     type: "outcome",
     amount: 3000,
@@ -42,7 +42,7 @@ export default transactions = [
   {
     id: "5",
     wallet: "Store",
-    name: "Dhurgham",
+    account: "Dhurgham",
     note: "Lorem ipsum is placeholder text",
     type: "income",
     amount: 5000,
@@ -52,7 +52,7 @@ export default transactions = [
   {
     id: "6",
     wallet: "Salary",
-    name: "Moaml",
+    account: "Moaml",
     note: "",
     type: "outcome",
     amount: 3000,
@@ -62,7 +62,7 @@ export default transactions = [
   {
     id: "7",
     wallet: "Box",
-    name: "Dhurgham",
+    account: "Dhurgham",
     note: "Lorem ipsum is placeholder text",
     type: "income",
     amount: 5000,
@@ -72,7 +72,7 @@ export default transactions = [
   {
     id: "8",
     wallet: "Salary",
-    name: "Moaml",
+    account: "Moaml",
     note: "",
     type: "outcome",
     amount: 3000,
@@ -82,7 +82,7 @@ export default transactions = [
   {
     id: "9",
     wallet: "Salary",
-    name: "Dhurgham",
+    account: "Dhurgham",
     note: "Lorem ipsum is placeholder text",
     type: "income",
     amount: 5000,
@@ -92,7 +92,7 @@ export default transactions = [
   {
     id: "10",
     wallet: "Salary",
-    name: "Moaml",
+    account: "Moaml",
     note: "",
     type: "outcome",
     amount: 3000,
@@ -102,7 +102,7 @@ export default transactions = [
   {
     id: "11",
     wallet: "Salary",
-    name: "Dhurgham",
+    account: "Dhurgham",
     note: "Lorem ipsum is placeholder text",
     type: "income",
     amount: 5000,
@@ -112,7 +112,7 @@ export default transactions = [
   {
     id: "12",
     wallet: "Salary",
-    name: "Moaml",
+    account: "Moaml",
     note: "",
     type: "outcome",
     amount: 3000,
@@ -122,7 +122,7 @@ export default transactions = [
   {
     id: "13",
     wallet: "Salary",
-    name: "Dhurgham",
+    account: "Dhurgham",
     note: "Lorem ipsum is placeholder text",
     type: "income",
     amount: 5000,
@@ -132,7 +132,7 @@ export default transactions = [
   {
     id: "14",
     wallet: "Salary",
-    name: "Moaml",
+    account: "Moaml",
     note: "",
     type: "outcome",
     amount: 3000,
@@ -142,7 +142,7 @@ export default transactions = [
   {
     id: "15",
     wallet: "Salary",
-    name: "Dhurgham",
+    account: "Dhurgham",
     note: "Lorem ipsum is placeholder text",
     type: "income",
     amount: 5000,
@@ -152,7 +152,7 @@ export default transactions = [
   {
     id: "16",
     wallet: "Salary",
-    name: "Moaml",
+    account: "Moaml",
     note: "",
     type: "outcome",
     amount: 3000,
@@ -162,7 +162,7 @@ export default transactions = [
   {
     id: "17",
     wallet: "Salary",
-    name: "Dhurgham",
+    account: "Dhurgham",
     note: "Lorem ipsum is placeholder text",
     type: "income",
     amount: 5000,
@@ -172,7 +172,7 @@ export default transactions = [
   {
     id: "18",
     wallet: "Salary",
-    name: "Moaml",
+    account: "Moaml",
     note: "",
     type: "outcome",
     amount: 3000,
@@ -182,7 +182,7 @@ export default transactions = [
   {
     id: "19",
     wallet: "Salary",
-    name: "Dhurgham",
+    account: "Dhurgham",
     note: "Lorem ipsum is placeholder text",
     type: "income",
     amount: 5000,
@@ -192,7 +192,7 @@ export default transactions = [
   {
     id: "20",
     wallet: "Salary",
-    name: "Moaml",
+    account: "Moaml",
     note: "",
     type: "outcome",
     amount: 3000,
