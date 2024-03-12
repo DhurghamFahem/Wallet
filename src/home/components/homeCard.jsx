@@ -1,11 +1,16 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import Delete from "../../../assets/svgs/delete.svg";
 import Edit from "../../../assets/svgs/edit.svg";
 import moment from "moment";
 import YesNoModal from "../modals/yesNoModal";
+import localization from "../../../localization/localization";
+import storage from "../../../data/storage.jsx";
 
-const HomeCard = ({ transaction }) => {
+const HomeCard = ({ transaction, transactions, onTransactionDeleted }) => {
+  const [deleteTransactionVisible, setDeleteTransactionVisible] =
+    useState(false);
+
   const bgColor = transaction.type === "income" ? "#7FB7BE" : "#7D1538";
   const currentStyles = styles(bgColor);
 
@@ -13,6 +18,20 @@ const HomeCard = ({ transaction }) => {
     return transaction.type === "income"
       ? "+" + transaction.amount.toLocaleString()
       : "-" + transaction.amount.toLocaleString();
+  };
+
+  const onNoPressed = () => {
+    setDeleteTransactionVisible(false);
+  };
+
+  const onYesPressed = () => {
+    setDeleteTransactionVisible(false);
+    transactions = transactions.filter((t) => t.id != transaction.id);
+    storage.save({
+      key: "transactions",
+      data: transactions,
+    });
+    onTransactionDeleted();
   };
 
   return (
@@ -37,7 +56,10 @@ const HomeCard = ({ transaction }) => {
         </View>
 
         <View style={currentStyles.actionBar}>
-          <TouchableOpacity style={currentStyles.deleteButton}>
+          <TouchableOpacity
+            style={currentStyles.deleteButton}
+            onPress={() => setDeleteTransactionVisible(true)}
+          >
             <Delete height={20} width={20} fill={"#DACC3E"} />
           </TouchableOpacity>
           <TouchableOpacity style={currentStyles.editButton}>
@@ -45,6 +67,12 @@ const HomeCard = ({ transaction }) => {
           </TouchableOpacity>
         </View>
       </View>
+      <YesNoModal
+        message={localization.t("deleteTransaction")}
+        visible={deleteTransactionVisible}
+        onNoPressed={onNoPressed}
+        onYesPressed={onYesPressed}
+      />
     </View>
   );
 };

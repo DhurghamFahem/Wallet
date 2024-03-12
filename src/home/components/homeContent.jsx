@@ -4,7 +4,13 @@ import HomeCard from "./homeCard";
 import moment from "moment";
 import localization from "../../../localization/localization.jsx";
 
-const HomeContent = ({ transactions, searchText, filter, getSummation }) => {
+const HomeContent = ({
+  transactions,
+  searchText,
+  filter,
+  getSummation,
+  onTransactionDeleted,
+}) => {
   const [filteredTransactions, setFilteredTransactions] =
     useState(transactions);
 
@@ -61,7 +67,13 @@ const HomeContent = ({ transactions, searchText, filter, getSummation }) => {
           data={filteredTransactions}
           keyExtractor={(item) => item.id.toString()}
           contentContainerStyle={{ flexGrow: 1 }}
-          renderItem={({ item }) => <HomeCard transaction={item} />}
+          renderItem={({ item }) => (
+            <HomeCard
+              transaction={item}
+              transactions={transactions}
+              onTransactionDeleted={onTransactionDeleted}
+            />
+          )}
         />
       ) : (
         <Text style={styles.noDataText}>{localization.t("noData")}</Text>

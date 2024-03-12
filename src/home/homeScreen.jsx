@@ -51,6 +51,10 @@ const HomeScreen = () => {
     handleRefresh();
   };
 
+  const onTransactionDeleted = () => {
+    handleRefresh();
+  };
+
   return (
     <SafeAreaView direction="rtl" style={styles.container}>
       {loading ? (
@@ -68,6 +72,7 @@ const HomeScreen = () => {
             searchText={searchText}
             filter={filter}
             getSummation={(sum) => getSummation(sum)}
+            onTransactionDeleted={onTransactionDeleted}
           />
           <HomeFooter
             summation={summation}
