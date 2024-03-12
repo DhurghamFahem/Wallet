@@ -4,12 +4,44 @@ import {
   TouchableOpacity,
   View,
   StyleSheet,
+  TextInput,
+  Text,
 } from "react-native";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Done from "../../../assets/svgs/done.svg";
 import Cancel from "../../../assets/svgs/cancel.svg";
+import AutoComplete from "../components/autoComplete";
+import localization from "../../../localization/localization.jsx";
 
-const AddTransactionModal = ({ type }) => {
+const AddTransactionModal = ({ type, visible, transactions }) => {
+  const [walletName, setWalletName] = useState("");
+  const [accountName, setAccountName] = useState("");
+  const [amount, setAmount] = useState(0.0);
+  const [note, setNote] = useState("");
+
+  const [wallets, setWallets] = useState([]);
+  const [accounts, setAccounts] = useState([]);
+
+  const onWalletChangeText = (text) => {
+    setWalletName(text);
+  };
+  const onAccountChangeText = (text) => {
+    setAccountName(text);
+  };
+
+  useEffect(() => {
+    var walletSet = new Set();
+    var accountSet = new Set();
+    for (let i = 0; i < transactions.length; i++) {
+      let wallet = transactions[i].wallet;
+      let account = transactions[i].account;
+      if (walletSet.has(wallet) === false) walletSet.add(wallet);
+      if (accountSet.has(account) === false) accountSet.add(account);
+    }
+    setWallets(Array.from(walletSet));
+    setAccounts(Array.from(accountSet));
+  }, [visible]);
+
   return (
     <Modal transparent={true} visible={true}>
       <View
@@ -23,8 +55,37 @@ const AddTransactionModal = ({ type }) => {
       >
         <Pressable style={styles.pressable}>
           <View style={styles.container}>
+            <Text style={{ marginTop: 15, fontSize: 20, fontWeight: "600" }}>
+              {type === "income"
+                ? localization.t("income")
+                : localization.t("outcome")}
+            </Text>
             <View style={styles.formContainer}>
-              <View style={{ width: "70%", flex: 1 }}></View>
+              <AutoComplete
+                data={wallets}
+                placeholder={localization.t("walletPlaceholder")}
+                onChangeText={(text) => onWalletChangeText(text)}
+              />
+              <AutoComplete
+                data={accounts}
+                placeholder={localization.t("accountPlaceholder")}
+                onChangeText={(text) => onAccountChangeText(text)}
+              />
+              <View style={{ width: "94%", marginTop: 5 }}>
+                <TextInput
+                  placeholder={localization.t("amount")}
+                  keyboardType="numeric"
+                  style={styles.textInput}
+                  onChangeText={(text) => setAmount(parseFloat(text))}
+                />
+              </View>
+              <View style={{ width: "94%", marginTop: 5 }}>
+                <TextInput
+                  placeholder={localization.t("note")}
+                  style={styles.textInput}
+                  onChangeText={(text) => setNote(text)}
+                />
+              </View>
             </View>
             <View
               style={{
@@ -83,7 +144,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   container: {
-    height: "40%",
+    height: "60%",
     width: "90%",
     backgroundColor: "#E6FDFF",
     alignItems: "center",
@@ -98,6 +159,15 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "center",
     alignItems: "center",
+  },
+  textInput: {
+    width: "94%",
+    height: 50,
+    backgroundColor: "#FFF",
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: "#444",
+    padding: 5,
   },
 });
 

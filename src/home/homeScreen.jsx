@@ -33,7 +33,7 @@ const HomeScreen = () => {
         filter={filter}
         getSummation={(sum) => getSummation(sum)}
       />
-      <HomeFooter summation={summation} />
+      <HomeFooter summation={summation} transactions={transactions} />
     </SafeAreaView>
   );
 };

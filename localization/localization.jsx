@@ -8,6 +8,12 @@ const translations = {
     searchAccounts: "Search accounts",
     from: "From",
     to: "To",
+    walletPlaceholder: "Wallet name example : Salary ... etc",
+    accountPlaceholder: "Account name example : Ali ... etc",
+    amount: "Amount",
+    note: "Note",
+    income: "Income",
+    outcome: "Outcome",
   },
   ar: {
     defaultSelectWalletButtonText: "حدد محفظة",
@@ -16,6 +22,12 @@ const translations = {
     searchAccounts: "ابحث بالحسابات",
     from: "من",
     to: "الى",
+    walletPlaceholder: "اسم المحفظة مثل : الراتب ... الخ",
+    accountPlaceholder: "اسم الحساب مثل : علي ... الخ",
+    amount: "المبلغ",
+    note: "الملاحظة",
+    income: "دخل/قبض",
+    outcome: "دفع/صرف",
   },
 };
 

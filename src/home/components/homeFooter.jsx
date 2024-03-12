@@ -3,7 +3,7 @@ import React from "react";
 import ActionButton from "./actionButton";
 import AddTransactionModal from "../modals/addTransactionModal";
 
-const HomeFooter = ({ summation }) => {
+const HomeFooter = ({ summation, transactions }) => {
   return (
     <View style={styles.container}>
       <ActionButton iconType={"income"} />
@@ -11,7 +11,7 @@ const HomeFooter = ({ summation }) => {
         <Text style={styles.summationText}>{summation.toLocaleString()}</Text>
       </View>
       <ActionButton iconType={"outcome"} />
-      <AddTransactionModal />
+      <AddTransactionModal transactions={transactions} />
     </View>
   );
 };
