@@ -51,7 +51,7 @@ const HomeScreen = () => {
     handleRefresh();
   };
 
-  const onTransactionDeleted = () => {
+  const onTransactionChanged = () => {
     handleRefresh();
   };
 
@@ -72,7 +72,7 @@ const HomeScreen = () => {
             searchText={searchText}
             filter={filter}
             getSummation={(sum) => getSummation(sum)}
-            onTransactionDeleted={onTransactionDeleted}
+            onTransactionChanged={onTransactionChanged}
           />
           <HomeFooter
             summation={summation}

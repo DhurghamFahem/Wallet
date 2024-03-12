@@ -24,6 +24,7 @@ const AddTransactionModal = ({
   transactions,
   onTransactionSaved,
   onClosePressed,
+  transaction,
 }) => {
   const validationSchema = Yup.object().shape({
     wallet: Yup.string().required("Wallet Name is required"),
@@ -51,30 +52,50 @@ const AddTransactionModal = ({
   }, [visible]);
 
   const initialValues = {
-    wallet: "",
-    account: "",
-    amount: "0.0",
-    note: "",
+    wallet: transaction === undefined ? "" : transaction.wallet,
+    account: transaction === undefined ? "" : transaction.account,
+    amount: transaction === undefined ? "0.0" : transaction.amount.toString(),
+    note: transaction === undefined ? "" : transaction.note,
   };
 
   const handleSubmit = (values) => {
-    const obj = {
-      id: uuid.v4(),
-      wallet: values.wallet,
-      account: values.account,
-      note: values.note,
-      type: type,
-      amount: parseFloat(values.amount),
-      date: moment(),
-    };
+    if (transaction === undefined) {
+      const obj = {
+        id: uuid.v4(),
+        wallet: values.wallet,
+        account: values.account,
+        note: values.note,
+        type: type,
+        amount: parseFloat(values.amount),
+        date: moment(),
+      };
 
-    transactions.push(obj);
+      transactions.push(obj);
 
-    storage.save({
-      key: "transactions",
-      data: transactions,
-    });
-    onTransactionSaved(obj);
+      storage.save({
+        key: "transactions",
+        data: transactions,
+      });
+      onTransactionSaved(obj);
+    } else {
+      const obj = {
+        id: transaction.id,
+        wallet: values.wallet,
+        account: values.account,
+        note: values.note,
+        type: transaction.type,
+        amount: parseFloat(values.amount),
+        date: transaction.date,
+      };
+
+      const index = transactions.map((c) => c.id).indexOf(transaction.id);
+      transactions[index] = obj;
+      storage.save({
+        key: "transactions",
+        data: transactions,
+      });
+      onTransactionSaved(obj);
+    }
   };
 
   return (

@@ -9,7 +9,7 @@ const HomeContent = ({
   searchText,
   filter,
   getSummation,
-  onTransactionDeleted,
+  onTransactionChanged,
 }) => {
   const [filteredTransactions, setFilteredTransactions] =
     useState(transactions);
@@ -71,7 +71,7 @@ const HomeContent = ({
             <HomeCard
               transaction={item}
               transactions={transactions}
-              onTransactionDeleted={onTransactionDeleted}
+              onTransactionChanged={onTransactionChanged}
             />
           )}
         />

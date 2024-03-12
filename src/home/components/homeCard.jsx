@@ -6,9 +6,12 @@ import moment from "moment";
 import YesNoModal from "../modals/yesNoModal";
 import localization from "../../../localization/localization";
 import storage from "../../../data/storage.jsx";
+import AddTransactionModal from "../modals/addTransactionModal.jsx";
 
-const HomeCard = ({ transaction, transactions, onTransactionDeleted }) => {
+const HomeCard = ({ transaction, transactions, onTransactionChanged }) => {
   const [deleteTransactionVisible, setDeleteTransactionVisible] =
+    useState(false);
+  const [isEditTransactionVisible, setIsEditTransactionVisible] =
     useState(false);
 
   const bgColor = transaction.type === "income" ? "#7FB7BE" : "#7D1538";
@@ -31,7 +34,16 @@ const HomeCard = ({ transaction, transactions, onTransactionDeleted }) => {
       key: "transactions",
       data: transactions,
     });
-    onTransactionDeleted();
+    onTransactionChanged();
+  };
+
+  const onClosePressed = () => {
+    setIsEditTransactionVisible(false);
+  };
+
+  const onSavePressed = () => {
+    setIsEditTransactionVisible(false);
+    onTransactionChanged();
   };
 
   return (
@@ -62,7 +74,10 @@ const HomeCard = ({ transaction, transactions, onTransactionDeleted }) => {
           >
             <Delete height={20} width={20} fill={"#DACC3E"} />
           </TouchableOpacity>
-          <TouchableOpacity style={currentStyles.editButton}>
+          <TouchableOpacity
+            style={currentStyles.editButton}
+            onPress={() => setIsEditTransactionVisible(true)}
+          >
             <Edit height={20} width={20} fill={"#DACC3E"} />
           </TouchableOpacity>
         </View>
@@ -72,6 +87,14 @@ const HomeCard = ({ transaction, transactions, onTransactionDeleted }) => {
         visible={deleteTransactionVisible}
         onNoPressed={onNoPressed}
         onYesPressed={onYesPressed}
+      />
+      <AddTransactionModal
+        transaction={transaction}
+        type={transaction.type}
+        transactions={transactions}
+        onTransactionSaved={onSavePressed}
+        visible={isEditTransactionVisible}
+        onClosePressed={onClosePressed}
       />
     </View>
   );
