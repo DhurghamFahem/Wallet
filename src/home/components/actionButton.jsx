@@ -29,6 +29,7 @@ const styles = (bgColor) =>
       alignItems: "center",
       justifyContent: "center",
       backgroundColor: bgColor,
+      elevation: 10,
     },
   });
 

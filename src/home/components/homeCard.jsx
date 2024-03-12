@@ -3,6 +3,7 @@ import React from "react";
 import Delete from "../../../assets/svgs/delete.svg";
 import Edit from "../../../assets/svgs/edit.svg";
 import moment from "moment";
+import YesNoModal from "../modals/yesNoModal";
 
 const HomeCard = ({ transaction }) => {
   const bgColor = transaction.type === "income" ? "#7FB7BE" : "#7D1538";

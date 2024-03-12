@@ -46,6 +46,11 @@ const HomeScreen = () => {
   const onTransactionSaved = () => {
     handleRefresh();
   };
+
+  const onDataCleared = () => {
+    handleRefresh();
+  };
+
   return (
     <SafeAreaView direction="rtl" style={styles.container}>
       {loading ? (
@@ -56,6 +61,7 @@ const HomeScreen = () => {
             transactions={transactions}
             onSearchTextChanged={(text) => setSearchText(text)}
             onFilterApplied={(f) => setFilter(f)}
+            onDataCleared={onDataCleared}
           />
           <HomeContent
             transactions={transactions}

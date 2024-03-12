@@ -1,18 +1,23 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-} from "react-native";
+import { View, StyleSheet, TextInput, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import Search from "../../../assets/svgs/search.svg";
 import Filter from "../../../assets/svgs/filter.svg";
+import Clear from "../../../assets/svgs/clear.svg";
 import FilterModal from "../modals/filterModal";
 import moment from "moment";
+import YesNoModal from "../modals/yesNoModal";
+import localization from "../../../localization/localization";
+import storage from "../../../data/storage.jsx";
 
-const HomeHeader = ({ transactions, onSearchTextChanged, onFilterApplied }) => {
+const HomeHeader = ({
+  transactions,
+  onSearchTextChanged,
+  onFilterApplied,
+  onDataCleared,
+}) => {
   const [filterVisible, setFilterVisible] = useState(false);
+  const [deleteAllDataVisible, setDeleteAllDataVisible] = useState(false);
+
   const [filter, setFilter] = useState({
     selectedWallet: "",
     selectedAccount: "",
@@ -30,6 +35,19 @@ const HomeHeader = ({ transactions, onSearchTextChanged, onFilterApplied }) => {
     setFilter(filter);
   };
 
+  const onNoPressed = () => {
+    setDeleteAllDataVisible(false);
+  };
+
+  const onYesPressed = () => {
+    storage.save({
+      key: "transactions",
+      data: [],
+    });
+    setDeleteAllDataVisible(false);
+    onDataCleared();
+  };
+
   return (
     <View style={styles.container}>
       <View
@@ -43,7 +61,7 @@ const HomeHeader = ({ transactions, onSearchTextChanged, onFilterApplied }) => {
         <TextInput
           onChangeText={(searchText) => onSearchTextChanged(searchText)}
           style={{
-            width: "79%",
+            width: "70%",
             height: 35,
             backgroundColor: "#DACC3E",
             borderRadius: 20,
@@ -57,6 +75,10 @@ const HomeHeader = ({ transactions, onSearchTextChanged, onFilterApplied }) => {
           }}
         >
           <Filter height={40} width={40} fill={"#DACC3E"} />
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => setDeleteAllDataVisible(true)}>
+          <Clear height={40} width={40} fill={"#DACC3E"} stroke={"#DACC3E"} />
         </TouchableOpacity>
       </View>
 
@@ -80,6 +102,12 @@ const HomeHeader = ({ transactions, onSearchTextChanged, onFilterApplied }) => {
           setFilterVisible(false);
           filterList(filter);
         }}
+      />
+      <YesNoModal
+        message={localization.t("deleteAllData")}
+        visible={deleteAllDataVisible}
+        onNoPressed={onNoPressed}
+        onYesPressed={onYesPressed}
       />
     </View>
   );

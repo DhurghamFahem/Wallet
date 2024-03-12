@@ -15,6 +15,11 @@ const translations = {
     income: "Income",
     outcome: "Outcome",
     noData: "No data.",
+    yes: "Yes",
+    no: "No",
+    areYouSure: "Are you sure ",
+    deleteAllData: "delete all data.",
+    deleteTransaction: "delete transaction.",
   },
   ar: {
     defaultSelectWalletButtonText: "حدد محفظة",
@@ -30,6 +35,11 @@ const translations = {
     income: "دخل/قبض",
     outcome: "دفع/صرف",
     noData: "لا يوجد بيانات",
+    yes: "نعم",
+    no: "لا",
+    areYouSure: "هل انت متأكد ",
+    deleteAllData: "حذف كل البيانات",
+    deleteTransaction: "حذف العملية",
   },
 };
 

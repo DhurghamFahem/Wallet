@@ -1,4 +1,4 @@
-import { View, StyleSheet, FlatList } from "react-native";
+import { View, StyleSheet, FlatList, Text } from "react-native";
 import React, { useState, useEffect } from "react";
 import HomeCard from "./homeCard";
 import moment from "moment";
@@ -64,7 +64,7 @@ const HomeContent = ({ transactions, searchText, filter, getSummation }) => {
           renderItem={({ item }) => <HomeCard transaction={item} />}
         />
       ) : (
-        <Text>{localization.t("noData")}</Text>
+        <Text style={styles.noDataText}>{localization.t("noData")}</Text>
       )}
     </View>
   );
@@ -78,6 +78,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#DACC3E",
+  },
+  noDataText: {
+    fontSize: 30,
+    fontWeight: "600",
   },
 });
 
