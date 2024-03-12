@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 import ActionButton from "./actionButton";
+import AddTransactionModal from "../modals/addTransactionModal";
 
 const HomeFooter = ({ summation }) => {
   return (
@@ -10,6 +11,7 @@ const HomeFooter = ({ summation }) => {
         <Text style={styles.summationText}>{summation.toLocaleString()}</Text>
       </View>
       <ActionButton iconType={"outcome"} />
+      <AddTransactionModal />
     </View>
   );
 };
