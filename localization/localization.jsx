@@ -14,6 +14,7 @@ const translations = {
     note: "Note",
     income: "Income",
     outcome: "Outcome",
+    noData: "No data.",
   },
   ar: {
     defaultSelectWalletButtonText: "حدد محفظة",
@@ -28,6 +29,7 @@ const translations = {
     note: "الملاحظة",
     income: "دخل/قبض",
     outcome: "دفع/صرف",
+    noData: "لا يوجد بيانات",
   },
 };
 

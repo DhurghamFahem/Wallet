@@ -12,22 +12,30 @@ import Done from "../../../assets/svgs/done.svg";
 import Cancel from "../../../assets/svgs/cancel.svg";
 import AutoComplete from "../components/autoComplete";
 import localization from "../../../localization/localization.jsx";
+import storage from "../../../data/storage.jsx";
+import uuid from "react-native-uuid";
+import * as Yup from "yup";
+import { Formik } from "formik";
+import moment from "moment";
 
-const AddTransactionModal = ({ type, visible, transactions }) => {
-  const [walletName, setWalletName] = useState("");
-  const [accountName, setAccountName] = useState("");
-  const [amount, setAmount] = useState(0.0);
-  const [note, setNote] = useState("");
+const AddTransactionModal = ({
+  type,
+  visible,
+  transactions,
+  onTransactionSaved,
+  onClosePressed,
+}) => {
+  const validationSchema = Yup.object().shape({
+    wallet: Yup.string().required("Wallet Name is required"),
+    account: Yup.string().required("Account Name is required"),
+    amount: Yup.number()
+      .required("Amount is required")
+      .positive("Input must be a positive number"),
+    note: Yup.string(),
+  });
 
   const [wallets, setWallets] = useState([]);
   const [accounts, setAccounts] = useState([]);
-
-  const onWalletChangeText = (text) => {
-    setWalletName(text);
-  };
-  const onAccountChangeText = (text) => {
-    setAccountName(text);
-  };
 
   useEffect(() => {
     var walletSet = new Set();
@@ -42,8 +50,35 @@ const AddTransactionModal = ({ type, visible, transactions }) => {
     setAccounts(Array.from(accountSet));
   }, [visible]);
 
+  const initialValues = {
+    wallet: "",
+    account: "",
+    amount: "0.0",
+    note: "",
+  };
+
+  const handleSubmit = (values) => {
+    const obj = {
+      id: uuid.v4(),
+      wallet: values.wallet,
+      account: values.account,
+      note: values.note,
+      type: type,
+      amount: parseFloat(values.amount),
+      date: moment(),
+    };
+
+    transactions.push(obj);
+
+    storage.save({
+      key: "transactions",
+      data: transactions,
+    });
+    onTransactionSaved(obj);
+  };
+
   return (
-    <Modal transparent={true} visible={true}>
+    <Modal transparent={true} visible={visible}>
       <View
         style={{
           flex: 1,
@@ -53,82 +88,122 @@ const AddTransactionModal = ({ type, visible, transactions }) => {
             type === "income" ? "rgba(0,20,0,0.8)" : "rgba(20,0,0,0.8)",
         }}
       >
-        <Pressable style={styles.pressable}>
+        <Pressable style={styles.pressable} onPress={onClosePressed}>
           <View style={styles.container}>
-            <Text style={{ marginTop: 15, fontSize: 20, fontWeight: "600" }}>
-              {type === "income"
-                ? localization.t("income")
-                : localization.t("outcome")}
-            </Text>
-            <View style={styles.formContainer}>
-              <AutoComplete
-                data={wallets}
-                placeholder={localization.t("walletPlaceholder")}
-                onChangeText={(text) => onWalletChangeText(text)}
-              />
-              <AutoComplete
-                data={accounts}
-                placeholder={localization.t("accountPlaceholder")}
-                onChangeText={(text) => onAccountChangeText(text)}
-              />
-              <View style={{ width: "94%", marginTop: 5 }}>
-                <TextInput
-                  placeholder={localization.t("amount")}
-                  keyboardType="numeric"
-                  style={styles.textInput}
-                  onChangeText={(text) => setAmount(parseFloat(text))}
-                />
-              </View>
-              <View style={{ width: "94%", marginTop: 5 }}>
-                <TextInput
-                  placeholder={localization.t("note")}
-                  style={styles.textInput}
-                  onChangeText={(text) => setNote(text)}
-                />
-              </View>
-            </View>
-            <View
-              style={{
-                height: 40,
-                width: "100%",
-                flexDirection: "row",
-                justifyContent: "space-around",
-              }}
+            <Formik
+              initialValues={initialValues}
+              validationSchema={validationSchema}
+              onSubmit={handleSubmit}
             >
-              <TouchableOpacity
-                style={{
-                  width: "50%",
-                  flex: 1,
-                  alignItems: "center",
-                  justifyContent: "center",
-                  backgroundColor: "#7D1538",
-                  borderBottomLeftRadius: 20,
-                }}
-              >
-                <Cancel width={30} height={30} fill={"#E6FDFF"} />
-              </TouchableOpacity>
+              {({
+                handleChange,
+                handleBlur,
+                handleSubmit,
+                values,
+                errors,
+                touched,
+              }) => (
+                <View
+                  style={{
+                    width: "100%",
+                    flex: 1,
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Text
+                    style={{ marginTop: 15, fontSize: 20, fontWeight: "600" }}
+                  >
+                    {type === "income"
+                      ? localization.t("income")
+                      : localization.t("outcome")}
+                  </Text>
+                  <View style={styles.formContainer}>
+                    <AutoComplete
+                      data={wallets}
+                      placeholder={localization.t("walletPlaceholder")}
+                      onChangeText={handleChange("wallet")}
+                      onBlur={handleBlur("wallet")}
+                      value={values.wallet}
+                    />
+                    {touched.wallet && errors.wallet && (
+                      <Text style={styles.errorText}>{errors.wallet}</Text>
+                    )}
+                    <AutoComplete
+                      data={accounts}
+                      placeholder={localization.t("accountPlaceholder")}
+                      onChangeText={handleChange("account")}
+                      onBlur={handleBlur("account")}
+                      value={values.account}
+                    />
+                    {touched.account && errors.account && (
+                      <Text style={styles.errorText}>{errors.account}</Text>
+                    )}
+                    <View style={{ width: "94%", marginTop: 5 }}>
+                      <TextInput
+                        placeholder={localization.t("amount")}
+                        keyboardType="numeric"
+                        style={styles.textInput}
+                        onChangeText={handleChange("amount")}
+                        onBlur={handleBlur("amount")}
+                        value={values.amount}
+                      />
+                    </View>
+                    {touched.amount && errors.amount && (
+                      <Text style={styles.errorText}>{errors.amount}</Text>
+                    )}
+                    <View style={{ width: "94%", marginTop: 5 }}>
+                      <TextInput
+                        placeholder={localization.t("note")}
+                        style={styles.textInput}
+                        onChangeText={handleChange("note")}
+                        onBlur={handleBlur("note")}
+                        value={values.note}
+                      />
+                    </View>
+                    {touched.note && errors.note && (
+                      <Text style={styles.errorText}>{errors.note}</Text>
+                    )}
+                  </View>
+                  <View
+                    style={{
+                      height: 40,
+                      width: "100%",
+                      flexDirection: "row",
+                      justifyContent: "space-around",
+                    }}
+                  >
+                    <TouchableOpacity
+                      style={{
+                        width: "50%",
+                        flex: 1,
+                        alignItems: "center",
+                        justifyContent: "center",
+                        backgroundColor: "#7D1538",
+                        borderBottomLeftRadius: 20,
+                      }}
+                      onPress={onClosePressed}
+                    >
+                      <Cancel width={30} height={30} fill={"#E6FDFF"} />
+                    </TouchableOpacity>
 
-              <TouchableOpacity
-                style={{
-                  width: "50%",
-                  flex: 1,
-                  alignItems: "center",
-                  justifyContent: "center",
-                  backgroundColor: "#7FB7BE",
-                  borderBottomRightRadius: 20,
-                }}
-                onPress={() =>
-                  onSavePressed({
-                    selectedWallet: selectedWallet,
-                    selectedAccount: selectedAccount,
-                    fromDate: fromDate,
-                    toDate: toDate,
-                  })
-                }
-              >
-                <Done width={30} height={30} fill={"#E6FDFF"} />
-              </TouchableOpacity>
-            </View>
+                    <TouchableOpacity
+                      style={{
+                        width: "50%",
+                        flex: 1,
+                        alignItems: "center",
+                        justifyContent: "center",
+                        backgroundColor: "#7FB7BE",
+                        borderBottomRightRadius: 20,
+                      }}
+                      onPress={handleSubmit}
+                    >
+                      <Done width={30} height={30} fill={"#E6FDFF"} />
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              )}
+            </Formik>
           </View>
         </Pressable>
       </View>
@@ -144,15 +219,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   container: {
-    height: "60%",
+    height: "80%",
     width: "90%",
     backgroundColor: "#E6FDFF",
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 20,
     elevation: 10,
-    borderTopWidth: 2,
-    borderBlockColor: "red",
   },
   formContainer: {
     flex: 1,
@@ -168,6 +241,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#444",
     padding: 5,
+  },
+  errorText: {
+    color: "red",
+    marginBottom: 10,
   },
 });
 

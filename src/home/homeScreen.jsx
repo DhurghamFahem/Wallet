@@ -1,14 +1,16 @@
-import { StyleSheet, SafeAreaView, View } from "react-native";
-import React, { useState } from "react";
+import { StyleSheet, SafeAreaView, ActivityIndicator } from "react-native";
+import React, { useState, useCallback, useEffect } from "react";
 import HomeFooter from "./components/homeFooter";
 import HomeHeader from "./components/homeHeader";
 import HomeContent from "./components/homeContent";
-import transactions from "../../data/transactions";
 import moment from "moment";
+import storage from "../../data/storage.jsx";
 
 const HomeScreen = () => {
   const [searchText, setSearchText] = useState("");
   const [summation, setSummation] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [transactions, setTransactions] = useState([]);
   const [filter, setFilter] = useState({
     selectedWallet: "",
     selectedAccount: "",
@@ -20,20 +22,54 @@ const HomeScreen = () => {
     setSummation(sum);
   };
 
+  const handleRefresh = useCallback(() => {
+    storage
+      .load({
+        key: "transactions",
+        autoSync: true,
+        syncInBackground: true,
+      })
+      .then((ret) => {
+        setLoading(false);
+        setTransactions(ret);
+      })
+      .catch((err) => {
+        console.warn(err.message);
+        setLoading(false);
+      });
+  }, []);
+
+  useEffect(() => {
+    handleRefresh();
+  }, [handleRefresh]);
+
+  const onTransactionSaved = () => {
+    handleRefresh();
+  };
   return (
     <SafeAreaView direction="rtl" style={styles.container}>
-      <HomeHeader
-        transactions={transactions}
-        onSearchTextChanged={(text) => setSearchText(text)}
-        onFilterApplied={(f) => setFilter(f)}
-      />
-      <HomeContent
-        transactions={transactions}
-        searchText={searchText}
-        filter={filter}
-        getSummation={(sum) => getSummation(sum)}
-      />
-      <HomeFooter summation={summation} transactions={transactions} />
+      {loading ? (
+        <ActivityIndicator size="large" color="blue" />
+      ) : (
+        <>
+          <HomeHeader
+            transactions={transactions}
+            onSearchTextChanged={(text) => setSearchText(text)}
+            onFilterApplied={(f) => setFilter(f)}
+          />
+          <HomeContent
+            transactions={transactions}
+            searchText={searchText}
+            filter={filter}
+            getSummation={(sum) => getSummation(sum)}
+          />
+          <HomeFooter
+            summation={summation}
+            transactions={transactions}
+            onTransactionSaved={onTransactionSaved}
+          />
+        </>
+      )}
     </SafeAreaView>
   );
 };

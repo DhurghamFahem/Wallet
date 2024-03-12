@@ -1,6 +1,8 @@
 import { View, StyleSheet, FlatList } from "react-native";
 import React, { useState, useEffect } from "react";
 import HomeCard from "./homeCard";
+import moment from "moment";
+import localization from "../../../localization/localization.jsx";
 
 const HomeContent = ({ transactions, searchText, filter, getSummation }) => {
   const [filteredTransactions, setFilteredTransactions] =
@@ -34,10 +36,11 @@ const HomeContent = ({ transactions, searchText, filter, getSummation }) => {
       )
         addToList = false;
 
-      if (transaction.date.isBefore(filter.fromDate) === true)
+      if (moment(transaction.date).isBefore(filter.fromDate) === true)
         addToList = false;
 
-      if (transaction.date.isAfter(filter.toDate) === true) addToList = false;
+      if (moment(transaction.date).isAfter(filter.toDate) === true)
+        addToList = false;
 
       if (addToList === true) {
         filtered.push(transaction);
@@ -49,16 +52,20 @@ const HomeContent = ({ transactions, searchText, filter, getSummation }) => {
     }
     setFilteredTransactions(filtered);
     getSummation(summation);
-  }, [filter, searchText]);
+  }, [filter, searchText, transactions]);
 
   return (
     <View style={styles.container}>
-      <FlatList
-        data={filteredTransactions}
-        keyExtractor={(item) => item.id.toString()}
-        contentContainerStyle={{ flexGrow: 1 }}
-        renderItem={({ item }) => <HomeCard transaction={item} />}
-      />
+      {filteredTransactions.length > 0 ? (
+        <FlatList
+          data={filteredTransactions}
+          keyExtractor={(item) => item.id.toString()}
+          contentContainerStyle={{ flexGrow: 1 }}
+          renderItem={({ item }) => <HomeCard transaction={item} />}
+        />
+      ) : (
+        <Text>{localization.t("noData")}</Text>
+      )}
     </View>
   );
 };

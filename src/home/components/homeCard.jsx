@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
 import Delete from "../../../assets/svgs/delete.svg";
 import Edit from "../../../assets/svgs/edit.svg";
+import moment from "moment";
 
 const HomeCard = ({ transaction }) => {
   const bgColor = transaction.type === "income" ? "#7FB7BE" : "#7D1538";
@@ -26,10 +27,10 @@ const HomeCard = ({ transaction }) => {
           <View style={currentStyles.rightContainer}>
             <Text style={currentStyles.amountText}>{getAmount()}</Text>
             <Text style={currentStyles.dateText}>
-              {transaction.date.format("YYYY-MM-DD")}
+              {moment(transaction.date).format("YYYY-MM-DD")}
             </Text>
             <Text style={currentStyles.dateText}>
-              {transaction.date.format("h:mm:ss a")}
+              {moment(transaction.date).format("h:mm:ss a")}
             </Text>
           </View>
         </View>

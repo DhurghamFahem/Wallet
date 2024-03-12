@@ -8,10 +8,9 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 
-const AutoComplete = ({ data, placeholder, onChangeText }) => {
+const AutoComplete = ({ data, placeholder, onChangeText, onBlur, value }) => {
   const [suggestions, setSuggestions] = useState(data);
   const [isOpen, setIsOpen] = useState(false);
-  const [text, setText] = useState("");
 
   const onTextChanged = (text) => {
     let lst = [];
@@ -24,21 +23,20 @@ const AutoComplete = ({ data, placeholder, onChangeText }) => {
     }
     setIsOpen(lst.length > 0);
     setSuggestions(lst);
-    setText(text);
     onChangeText(text);
   };
 
   const onItemSelected = (item) => {
     setIsOpen(false);
-    setText(item);
-    onChangeText(text);
+    onChangeText(item);
   };
   return (
     <View style={styles.container}>
       <TextInput
         placeholder={placeholder}
         style={styles.textInput}
-        value={text}
+        value={value}
+        onBlur={onBlur}
         onChangeText={(text) => onTextChanged(text)}
       />
       {isOpen && (
