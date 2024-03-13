@@ -26,7 +26,17 @@ const HomeFooter = ({ summation, transactions, onTransactionSaved }) => {
         }}
       />
       <View style={styles.summationContainer}>
-        <Text style={styles.summationText}>{summation.toLocaleString()}</Text>
+        <Text
+          style={[
+            styles.summationText,
+            {
+              color:
+                summation > 0 ? "#7FB7BE" : summation < 0 ? "#7D1538" : "black",
+            },
+          ]}
+        >
+          {summation.toLocaleString()}
+        </Text>
       </View>
       <ActionButton
         iconType={"outcome"}
@@ -54,6 +64,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flexDirection: "row",
     justifyContent: "space-between",
+    borderWidth: 1,
   },
   summationContainer: {
     width: "40%",
@@ -64,8 +75,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   summationText: {
-    fontSize: 18,
-    fontWeight: "600",
+    fontSize: 30,
+    fontWeight: "800",
   },
 });
 

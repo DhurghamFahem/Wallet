@@ -31,7 +31,7 @@ const HomeScreen = () => {
       })
       .then((ret) => {
         setLoading(false);
-        setTransactions(ret);
+        setTransactions(ret === null || ret === undefined ? [] : ret);
       })
       .catch((err) => {
         console.warn(err.message);
